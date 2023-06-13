@@ -37,8 +37,8 @@ public:
 	T poll();	
 
 private:
-	std::list<T> elements;
-	MyComparator<T> compare;
+	std::list<T> _elements;
+	MyComparator<T> _compare;
 };
 
 
@@ -52,10 +52,10 @@ private:
 template<typename T>
 inline void PriorityQueue<T>::push(const T& t)
 {
-	typename std::list<T>::iterator it = elements.begin();
-	while (it != elements.end() && compare(t, *it) < 0)
+	typename std::list<T>::iterator it = _elements.begin();
+	while (it != _elements.end() && !(_compare(t, *it) < 0))
 		++it;
-	elements.insert(it, t);
+	_elements.insert(it, t);
 }
 
 
@@ -68,11 +68,11 @@ inline void PriorityQueue<T>::push(const T& t)
 template<typename T>
 inline T PriorityQueue<T>::poll()
 {
-	if (elements.empty()) {
+	if (_elements.empty()) {
 		throw std::runtime_error("Priority queue is empty");
 	}
 
-	T element = elements.front();
-	elements.pop_front();
+	T element = _elements.front();
+	_elements.pop_front();
 	return element;
 }
