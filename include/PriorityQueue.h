@@ -7,25 +7,23 @@
 
 template <typename T>
 struct MyComparator {
-	bool operator()(T a, T b) const {
-		return a < b;
+	T operator()(T a, T b) const {
+		return a - b;
 	}
 };
 
-// any templates?
+
 template <typename T>
 class PriorityQueue {
    
 public:
 	
-// You need to complete the implement : 
 	void push(const T& t); 
 	T poll();	
 
 private:
-// add relevant data members
 	std::list<T> elements;
-
+	MyComparator<T> compare;
 };
 
 
@@ -34,7 +32,7 @@ template<typename T>
 inline void PriorityQueue<T>::push(const T& t)
 {
 	typename std::list<T>::iterator it = elements.begin();
-	while (it != elements.end() && MyComparator<T>(t, *it))
+	while (it != elements.end() && compare(t, *it) < 0)
 		++it;
 	elements.insert(it, t);
 }
