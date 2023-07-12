@@ -33,7 +33,9 @@ class PriorityQueue {
    
 public:
 	
+	// Push template element to the queue
 	void push(const T& t); 
+	// Get the first element of the queue
 	T poll();	
 
 private:
